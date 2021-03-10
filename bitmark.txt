@@ -1,0 +1,10 @@
+sử dụng cho mảng nhỏ hơn 31 phần tử
+
+(0,3.4)
+BitMark: ....00011001
+    
+int x=(1<<0|1<<3|1<<4); dịch số 1 đi 0,3,4 bit rồi or với nhau
+
+kiểm tra phần tử i<=31 có trong mảng ko:   if(x& 1<<i) { đúng}
+
+

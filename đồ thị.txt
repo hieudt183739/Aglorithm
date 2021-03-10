@@ -1,0 +1,4 @@
+là 1 cấu trúc dữ liệ rời dạc
+danh sách kề
+ma trận kề
+danh sách cạnh: lưu trữ thông tin cạnh  kề với đỉnh

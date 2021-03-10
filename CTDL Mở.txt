@@ -1,0 +1,4 @@
+cây nhị phân tìm kiếm: cha lớn hơn trái và nhỏ hơn phải
+Bài toán: đếm số lượng phần tử nhỏ hơn x, tìm phần tử nhỏ thứ k
+PP: tốn thêm bộ nhớ lưu kích thước của cây con tại mỗi nút. mỗi khi xóa sửa sẽ reset lại
+để gán giá trị kích thước câu con sử dụng thuật toán bfs 
