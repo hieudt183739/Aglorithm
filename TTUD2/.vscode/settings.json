@@ -4,6 +4,20 @@
         "stack": "cpp",
         "utility": "cpp",
         "algorithm": "cpp",
-        "xstddef": "cpp"
+        "xstddef": "cpp",
+        "deque": "cpp",
+        "memory": "cpp",
+        "queue": "cpp",
+        "system_error": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "vector": "cpp",
+        "xlocale": "cpp",
+        "xlocinfo": "cpp",
+        "xmemory": "cpp",
+        "xstring": "cpp",
+        "xtr1common": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
     }
 }

@@ -26,7 +26,7 @@ int main()
             }
             else
             {
-                if (s.empty())
+                if (s.empty() && (c == ')' || c == '}' || c == ']'))
                 {
                     isCorrect = false;
                     break;
