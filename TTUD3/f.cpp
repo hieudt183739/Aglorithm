@@ -19,7 +19,6 @@ typedef unsigned long long ull;
 
 ull n;
 ull c[23][23];
-ull i, j;
 bool mark_passenger[12];
 ull res_dich[12];// chi can luu cac dich da tham
 ull cMin = 1e14;
