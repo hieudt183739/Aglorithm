@@ -1,35 +1,70 @@
+#include <stdio.h>
+#include <string.h>
 #include <iostream>
 using namespace std;
-typedef unsigned long long ull;
+int Input(char ip[], char port[]);
 
-ull n, k;
-ull c[23][23];
-ull cMin = 1e14;
-ull best = 1e14;
-ull dem = 0;
-ull sum = 0;
-bool mark[23];
-bool mark_passenger_onBus[12]; // danh dau hanh khach i co o tren xe bus ko
-ull res[23];
-
-void khoiTao()
+int main()
 {
-    for (int i = 0; i <= 2 * n; i++)
-    {
-        for (int j = 0; j <= 2 * n; j++)
-        {
-            cin >> c[i][j];
-            cMin = cMin < c[i][j] ? cMin : c[i][j];
-        }
-    }
+	char command[50];
+	char ip[50];
+	char port[50];
+	memset(ip, 0, sizeof(ip));
+	memset(port, 0, sizeof(port));
+	 int a = Input(ip, port);
+	cout << ip << "\n"
+		 << port;
+
+	return 0;
 }
 
-void Try(int t)
+int Input(char ip[], char port[])
 {
-    if (sum + 2 * (n - t + 1) > best)
-        return;
-    else
-    {
+	char str[50];
+	char command[50];
 
-    }
+	int res = 0;
+	int i = 0;
+	memset(str, 0, sizeof(str));
+	memset(command, 0, sizeof(command));
+	fgets(str, sizeof(str), stdin);
+	for (i = 0; i < strlen(str) - 1; i++)
+	{
+
+		if (str[i] == ' ')
+		{
+
+			if (strcmp(command, "TCPClient.exe") == 0)
+			{
+				res++;
+			}
+			break;
+		}
+		else
+		{
+			command[i] = str[i];
+		}
+	}
+	int i1 = ++i;
+
+	if (res == 0)
+	{
+		return -1;
+	}
+
+	for (; i < strlen(str) - 1; i++)
+	{
+		if (str[i] == ' ')
+		{
+			break;
+		}
+		ip[i - i1] = str[i];
+	}
+	int i2 = ++i;
+	for (; i < strlen(str) - 1; i++)
+	{
+		port[i - i2] = str[i];
+	}
+
+	return 0;
 }
