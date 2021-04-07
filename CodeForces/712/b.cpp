@@ -1,24 +1,24 @@
 #include <iostream>
 #include <queue>
-#include<tuple>
 using namespace std;
 
-#define rep(i,a,b) for(int i=(a);i<(b);i++)
-int n,x,col,a,b,rem; queue<tuple<int,int> > t[5];
-int main(){
-    cin>>n;
-    rep(i,0,n) rep(j,0,n) t[(i+j)%2+1].push({i,j});
-    rep(i,0,n*n){
-        cin>>x;
-        if(rem) {
-            col=rem==x?3:rem;
-            tie(a,b)=t[rem].front(); t[rem].pop();
-        } else {
-            col=1==x?2:1;
-            tie(a,b)=t[col].front(); t[col].pop();
-            if(t[col].empty()) rem=3-col;
-        }
-        cout<<col<<" "<<1+a<<" "<<1+b<<"\n";
-        cout.flush();
-    }
+int n, i, j, a, x, y;
+vector<pair<int, int> > c[2];
+ 
+void calc() {
+  cin >> a;
+  x = (!c[1].empty() && a != 1) || c[0].empty();
+  y = x ? (a == 1 ? 3 : 1) : (a == 2 ? 3 : 2);
+  printf("%d %d %d\n", y, c[x].back().first, c[x].back().second);
+  cout.flush();
+  c[x].pop_back();
+}
+ 
+int main() {
+  cin >> n;
+  for (i = 1 ; i <= n ; i++)
+    for (j = 1 ; j <= n ; j++)
+      c[(i + j) & 1].push_back(make_pair(i, j));// i+j chan-->c[0]
+  for (i = 1; i <= n*n ; i++)
+    calc();
 }

@@ -5,6 +5,7 @@ using namespace std;
 char s[Max];
 int n;
 int t0, t1;
+
 int main()
 {
     int t;
@@ -12,7 +13,8 @@ int main()
     while (t--)
     {
         cin >> n;
-        cin >> s[1];
+        cin >> s + 1;
+
         t0 = 0, t1 = 0;
         for (int i = 1; i <= n; i++)
         {
@@ -26,30 +28,36 @@ int main()
         {
             cout << "NO"
                  << "\n";
-            return 0;
         }
         else
         {
             cout << "YES"
                  << "\n";
-            int count = 0;
-            for (int i = 1; i <= n; i++)
+
+            for (int i = 1, n0 = 0, n1 = 0; i <= n; i++)
             {
-                if (s[i] == '1' && i <= t1 / 2)
-                {
-                    cout << '(';
-                }
-                else if (s[i] == '1' && i > t1 / 2)
-                {
-                    cout << ')';
-                }
+                if (s[i] == '1')
+                    putchar((++n1 <= t1 / 2) ? '(' : ')');
                 else
                 {
-                    count++;
-                    if (count & 1)
+                    if (++n0 & 1)
                         cout << '(';
                     else
                         cout << ')';
+                }
+            }
+            cout << "\n";
+
+            for (int i = 1, n0 = 0, n1 = 0; i <= n; i++)
+            {
+                if (s[i] == '1')
+                    putchar((++n1 <= t1 / 2) ? '(' : ')');
+                else
+                {
+                    if (++n0 & 1)
+                        cout << ')';
+                    else
+                        cout << '(';
                 }
             }
             cout << "\n";
