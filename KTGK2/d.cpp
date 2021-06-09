@@ -17,7 +17,7 @@ int main(){
     }
     
     dp[n + 1] = dp[n + 2] = 0;
-    for(int i = n; i >= 1; i--){
+    for(int i = n; i; i--){
         dp[i] = max(dp[i + 1], dp[i + 2] + a[i]);
     }
     int cur = 1;
@@ -25,12 +25,12 @@ int main(){
         if(dp[cur] == dp[cur + 2] + a[cur]){
             res.push_back(cur);
             cur += 2;
-        }else cur += 1;
+        }else cur++;
     }
-    cout << dp[1] << endl;
-    cout << res.size() << endl;
-    for(int i = 0; i < res.size(); i++) cout << res[i] << " ";
-    cout << endl;
+    cout << dp[1] << "\n";
+    cout << res.size() << "\n";
+    for(int i = 0; i < res.size(); i++) cout << res[i] << ' ';
+    cout << "\n";
     
     return 0;
 }
