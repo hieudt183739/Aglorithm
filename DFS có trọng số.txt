@@ -1,0 +1,34 @@
+#include<iostream>
+#include<utility>
+#include<vector>
+using namespace std;
+
+const int N = 10001;
+vector<pair<int,int>> connected[N];
+int best_sum = 0;
+
+void DFS(int u, int daddy, int sum){
+    for(int i = 0; i < connected[u].size(); i++){
+        int v = connected[u][i].first;
+        if(v == daddy) continue;
+        DFS(v,u,sum + connected[u][i].second);        
+        best_sum = max(sum + connected[u][i].second,best_sum);
+    }
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    int n; // so canh cua cay
+    cin >> n;
+    for(int i = 0; i < n; i++){
+        int u,v,w;
+        cin >> u >> v >> w;
+        connected[u].push_back({v,w});
+        connected[v].push_back({u,w});
+    }
+
+    // code here
+
+    return 0;
+    
+}

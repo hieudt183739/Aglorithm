@@ -2,3 +2,12 @@ là 1 cấu trúc dữ liệ rời dạc
 danh sách kề
 ma trận kề
 danh sách cạnh: lưu trữ thông tin cạnh  kề với đỉnh
+
+-Cách bài toán kinh điển:
+MVC- bài toán phủ đỉnh: tìm 1 tập đỉnh mà tất cả các cạnh chứa các đỉnh đó
+MIS- bài toán tập độc lập: tìm các đỉnh không kề vói nhau
+bài toán ghép cặp: 
+bài toán tô màu: tô màu vào các đỉnh sao cho các đỉnh kề nhau không cùng màu
+
+-Loại đồ thị đặc biệt:
+Đồ thị 2 phía: 

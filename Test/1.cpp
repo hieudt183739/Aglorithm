@@ -1,17 +1,18 @@
-#include<iostream>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-void abc(){
-    return;
-}
+int main()
+{
+   int day, year;
+   char weekday[20], month[20], dtm[100];
 
-int main(){
-   ios_base::sync_with_stdio(false);cin.tie(NULL);
-   
-   
-   
-      
+   strcpy( dtm, "Tuesday July 12 2016" );
+   sscanf( dtm, "%s%s ", weekday, month);
 
-
-   return 0;
+   printf(weekday);
+   printf("\n");
+   printf(month);
+    
+   return(0);
 }
