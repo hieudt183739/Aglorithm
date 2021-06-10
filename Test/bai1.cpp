@@ -1,207 +1,65 @@
-#include "reg51.h"
-#include "string.h"
-//Dinh nghia mot so chan de dieu khien den LCD
-#define LCD_DATA P2
-sbit EN = P0 ^ 2;
-sbit RS = P0 ^ 0;
-sbit RW = P0 ^ 1;
-//Khai bao prototype cho cac ham
-void Init_System();
-void Delay_ms(int interval);
-void LCD_init();
-void Wait_For_LCD();
-void LCD_Send_Command(unsigned char x);
-void LCD_Write_One_Char(unsigned char c);
-void LCD_Write_String(unsigned char *s);
+#include<iostream>
+#include<vector>
+using namespace std;
 
-sbit SPK = P3 ^ 7;
+const int N = 110;
+int n,e;
+int m[N];
+int res = 1e9;
+int sum = 1e9;
+int used[N];
 
-//verify this table according to your CPU clock
-code unsigned int note_table[] = {
-    0xf8, 0x8b, //1 do
-    0xf9, 0x5b, //2 re
-    0xfa, 0x17, //3 mi
-    0xfa, 0x6b, //4 fa
-    0xfb, 0x07, //5 sol
-    0xfb, 0x92, //6 la
-    0xfc, 0x0d, //7 si
-};
-
-code unsigned int song2[] = {
-    0xf8, 0x8b, //1 do
-    0xf8, 0x8b, //1 do
-    0xf9, 0x5b, //2 re
-    0xf8, 0x8b, //1 do
-    0xfa, 0x6b, //4 fa
-    0xfa, 0x17, //3 mi
-    0xf8, 0x8b, //1 do
-    0xf8, 0x8b, //1 do
-    0xf9, 0x5b, //2 re
-    0xf8, 0x8b, //1 do
-    0xfb, 0x07, //5 sol
-    0xfa, 0x6b, //4 fa
-    0xf8, 0x8b, //1 do
-    0xf8, 0x8b, //1 do
-    0xfc, 0x0d, //7 si
-    0xfb, 0x92, //6 la
-    0xfa, 0x6b, //4 fa
-    0xfa, 0x17, //3 mi
-    0xf9, 0x5b, //2 re
-    0xfc, 0x0d, //7 si
-    0xfc, 0x0d, //7 si
-    0xfb, 0x92, //6 la
-    0xfa, 0x6b, //4 fa
-    0xfb, 0x07, //5 sol
-    0xfa, 0x6b, //4 fa
-
-};
-
-unsigned char note_index;
-
-void init();
-void delay(unsigned int time);
-
-char uart_data;
-
-void music()
-{
-  unsigned char i;
-  note_index = 0;
-  for (i = 0; i < 25; i++)
-  {
-    TH0 = song2[note_index];
-    TL0 = song2[note_index + 1];
-    TR0 = 1;
-    delay(40000);
-    TR0 = 0;
-    SPK = 1;
-    delay(40000);
-    note_index += 2;
+int check(){
+  int sum = 0;
+  int count = 0;
+  int tmp = 1;
+  for(int i = 1; i <= n; i++){
+    if(used[i] == 0){
+      int j,k;
+      j = i + 1;
+      k = i - 1;
+      while(j <= n && used[j] == 0) j++;
+      while(k >= 1 && used[k] == 0) k--;
+      if(k == 0) sum += 2 * abs(m[j] - m[i]);
+      else if(j > n) sum += 2 * abs(m[k] - m[i]);
+      else sum += abs(2 * m[i] - (m[j] + m[k]));
+    }else count++;
   }
-  delay(50000);
-  delay(50000);
+  
+  if(sum > e || count > e) return -1;
+  if(count == 0) tmp = 0;
+  return sum * tmp;
+  
 }
 
-void serial_IT(void) interrupt 4
-{
-  if (RI == 1)
-  {
-    RI = 0;           /* prepare for next reception */
-    uart_data = SBUF; /* Read receive data */
-    SBUF = uart_data; /* Send back same data on uart*/
+void Try(int u, int quantity){
+  if(u > n){
+    int tmp = check();
+    if(tmp != -1) {
+      if(res > quantity){
+        res = quantity;
+        sum = tmp;
+      }
+      else if(res == quantity) sum = min(sum,tmp);
+    }
+    return;
   }
-  else
-    TI = 0; /* if emission occur */
+  
+  used[u] = 0;
+  Try(u + 1, quantity);
+  
+  used[u] = 1;
+  Try(u + 1, quantity + 1);  
 }
 
-void main(void)
-{
-  unsigned char i;
-  init();
-
-  SCON = 0x50;        /* uart in mode 1 (8 bit), REN=1 */
-  TMOD = TMOD | 0x20; /* Timer 1 in mode 2 */
-  TH1 = 0xFD;         /* 9600 Bds at 11.0592MHz */
-  TL1 = 0xFD;         /* 9600 Bds at 11.0592MHz */
-  ES = 1;             /* Enable serial interrupt*/
-  EA = 1;             /* Enable global interrupt */
-  TR1 = 1;            /* Timer 1 run */
-
-  Init_System();
-  LCD_init();
-  LCD_Write_String("NTH GROUP");
-  LCD_Send_Command(0xC0); //Chuyen con tro xuong dong thu 2
-  LCD_Write_String("**************");
-
-  music();
-
-  while (1)
-  {
-    note_index = 0;
+int main(){
+  ios_base::sync_with_stdio(false);cin.tie(NULL);
+  
+  cin >> n >> e;
+  for(int i = 1; i <= n; i++){
+    cin >> m[i];
   }
+  Try(1,0);
+  cout << res << " " << sum << endl;
 }
 
-void init()
-{
-  TMOD = 0x01;
-  EA = 1;
-  ET0 = 1;
-  TR0 = 0;
-}
-
-void timer0() interrupt 1
-{
-  TH0 = song2[note_index];
-  TL0 = song2[note_index + 1];
-
-  SPK = ~SPK;
-}
-
-void delay(unsigned int time)
-{
-  while (time--)
-    ;
-}
-
-void Init_System()
-{
-  //Thiet lap LCD o che do doc
-  RW = 1;
-}
-void Delay_ms(int interval)
-{
-  int i, j;
-  for (i = 0; i < 1000; i++)
-  {
-    for (j = 0; j < interval; j++)
-      ;
-  }
-}
-//Ham thuc hien gui mot lenh xuong LCD
-void LCD_Send_Command(unsigned char x)
-{
-  LCD_DATA = x;
-  RS = 0; //Chon thanh ghi lenh
-  RW = 0; //De ghi du lieu
-  EN = 1;
-  Delay_ms(1);
-  EN = 0;
-  Wait_For_LCD(); //Doi cho LCD san sang
-  EN = 1;
-}
-//Ham kiem tra va cho den khi LCD san sang
-void Wait_For_LCD()
-{
-  Delay_ms(1);
-}
-void LCD_init()
-{
-  LCD_Send_Command(0x38); //Chon che do 8 bit, 2 hang cho LCD
-  LCD_Send_Command(0x0E); //Bat hien thi, nhap nhay con tro
-  LCD_Send_Command(0x01); //Xoa man hinh
-  LCD_Send_Command(0x80); //Ve dau dong
-}
-//Ham de LCD hien thi mot ky tu
-void LCD_Write_One_Char(unsigned char c)
-{
-  LCD_DATA = c; //Dua du lieu vao thanh ghi
-  RS = 1;       //Chon thanh ghi du lieu
-  RW = 0;
-  EN = 1;
-  Delay_ms(1);
-  EN = 0;
-  Wait_For_LCD();
-  EN = 1;
-}
-//Ham de LCD hien thi mot xau
-void LCD_Write_String(unsigned char *s)
-{
-  unsigned char length;
-  length = strlen(s); //Lay do dai xau
-  while (length != 0)
-  {
-    LCD_Write_One_Char(*s); //Ghi ra LCD gia tri duoc tro boi con tro
-    s++;                    //Tang con tro
-    length--;
-  }
-}
