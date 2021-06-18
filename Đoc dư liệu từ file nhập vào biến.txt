@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+
+int main ()
+{ 
+  int n = 0;
+  freopen ("D:\\Document\\TTUD\\Test\\f.txt","r",stdin);
+  cin >> n;
+
+  cout << n << endl;
+  fclose (stdin);
+  return 0;
+}
