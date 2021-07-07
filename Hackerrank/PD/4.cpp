@@ -1,3 +1,4 @@
+//https://www.hackerrank.com/challenges/construct-the-array/problem
 #include<iostream>
 #include<algorithm>
 #include<vector>
@@ -25,7 +26,7 @@ int main(){
     
     return 0;
 }
-// dp[3][1] = dp[2][2] + dp[2][3]
+
 
 // dp[5][3] = dp[4][1] + dp[4][2] = dp[3][2] + dp[3][3] + dp[3][1] +dp[3][3]
 
