@@ -12,8 +12,8 @@ long long res[N];
 
 // DSU luu rung
 struct DSU{
-    int root[N]; // goc cua cay
-    int size[N]; // kich thuoc cua cay 
+    int root[N]; // root[i] la cha cua nut i. root[i] = i thi i la goc cua cay
+    int size[N]; // i la goc thi size[i] la kich thuoc cua cay 
     DSU(){
         for(int i = 1; i <= n; i++){
             root[i] = i;
@@ -37,6 +37,7 @@ struct DSU{
 
 int main(){
     ios_base::sync_with_stdio(false);cin.tie(NULL);
+    
     cin >> n;
     for(int i = 1; i <= n - 1; i++){
         int u, v;

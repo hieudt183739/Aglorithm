@@ -1,7 +1,8 @@
 là 1 cấu trúc dữ liệ rời dạc
 danh sách kề
 ma trận kề
-danh sách cạnh: lưu trữ thông tin cạnh  kề với đỉnh
+danh sách cạnh: sử dụng trong các bài toán liên quan đến số thứ tự của cạnh
+
 
 -Cách bài toán kinh điển:
 MVC- bài toán phủ đỉnh: tìm 1 tập đỉnh mà tất cả các cạnh chứa các đỉnh đó
