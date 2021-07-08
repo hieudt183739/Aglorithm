@@ -1,9 +1,9 @@
 DSU dùng cho dữ liệu rừng.
 
 cấu trúc này ko có sẵn trong C++ vậy lên phải tự tạo nếu muốn dùng.
-dùng trong các bài toán muốn hơp các cậy lại với nhau. 
+dùng trong các bài toán muốn hơp các cậy lại với nhau. tìm kích thước của các cây.
 
 DSU có 3 hàm chính:
 DSU(): hàm khởi tạo khi tạo 1 DSU, mỗi nút là 1 cây trong rừng
-getRoot(u): lấy gốc của cây chứa nút u --> kiểm tra xem nút nào thuộc cây nào
-unite(u, v): hợp 2 cây có nút u và v lại với nhau --> hợp 2 cây làm 1
+getRoot(u): lấy gốc của cây chứa nút u --> kiểm tra xem nút nào thuộc cây nào. O(v) v là số lần gọi đệ quy
+unite(u, v): hợp 2 cây có nút u và v lại với nhau --> hợp 2 cây làm 1. O(v) v là số lần gọi đệ quy. Nếu cài đặt hàm unite() hợp cây nhỏ vào cây lớn thì thời gian sẽ là O(log(v)).
