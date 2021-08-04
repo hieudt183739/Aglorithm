@@ -1,0 +1,2 @@
+từ 1 bài toán sử dụng đệ quy mà thấy xuất hiện các bài toán con giống nhau, tức là phải tính đi tính lại 1 bài toán con thì có thể cân nhắc sử dụng PD theo kiểu memoization: tạo ra 1 cấu trúc dữ liệu để lưu kết quả các bài toán con.
+có thể sử dụng cài đặt theo kiểu topdown như đã học trong slide

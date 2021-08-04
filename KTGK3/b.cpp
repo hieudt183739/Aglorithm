@@ -6,8 +6,8 @@ using namespace std;
 const int N = 1e5 + 1;
 int n, q;
 pair<int, int> edge[N];
-int id[N];
-bool used[N];
+int id[N]; // chi so day bi cat
+bool used[N]; // used[i] day bi cat thu i chua duoc xet
 long long res[N];
 
 // DSU luu rung

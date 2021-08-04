@@ -1,0 +1,6 @@
+. 2^31 => Tối ưu là O(1) hoặc O(logn)
+. 10^6 => 10^8 => O(n)
+. 10^4 => 10^5 => O(nlogn)
+. 2000 => 10^4 => O(nlogn) hoặc O(n^2)
+. 300 - 5000 => O(n^2)
+. Nhỏ hơn nữa thì thường là O(2^n) hoặc O(n!)

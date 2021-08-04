@@ -1,3 +1,4 @@
+// https://www.hackerrank.com/challenges/greedy-florist/problem
 #include<iostream>
 #include<algorithm>
 #include<vector>
@@ -23,7 +24,7 @@ int main(){
     for(int i = n; i; i--){
         res += c[i] * (start + 1);
         dem++ ;
-        cout << res << endl;
+        // cout << res << endl;
         if(dem % k == 0) start++ ;  
     }
 
